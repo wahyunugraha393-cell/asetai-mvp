@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#101114">
+  <title>AsetAI — Pusat Bisnis Digital</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand-mark">A</div>
+    <div>
+      <div class="brand-name">AsetAI</div>
+      <div class="brand-sub">Pusat bisnis digital pribadi</div>
+    </div>
+    <button id="exportBtn" class="button button-quiet small">Ekspor data</button>
+  </header>
+
+  <main class="wrap">
+    <section class="hero">
+      <div class="eyebrow">MVP • GRATIS • MOBILE-FIRST</div>
+      <h1>Bangun aset digital.<br><span>Kelola dari satu tempat.</span></h1>
+      <p>Rencanakan produk, siapkan materi promosi, tinjau sebelum publikasi, dan catat penjualan. Versi ini menyimpan data di perangkat/browser ini.</p>
+      <div class="hero-note"><span class="dot"></span> Tidak perlu akun atau API berbayar untuk mencoba</div>
+    </section>
+
+    <section class="stats-grid" aria-label="Ringkasan">
+      <article class="stat-card"><div class="stat-label">Produk tersimpan</div><div id="statProducts" class="stat-number">0</div><div class="stat-foot">Draft + siap dipublikasikan</div></article>
+      <article class="stat-card"><div class="stat-label">Menunggu persetujuan</div><div id="statReview" class="stat-number">0</div><div class="stat-foot">Periksa kualitas sebelum jual</div></article>
+      <article class="stat-card"><div class="stat-label">Omzet tercatat</div><div id="statRevenue" class="stat-number">Rp0</div><div class="stat-foot">Berdasarkan transaksi yang kamu input</div></article>
+    </section>
+
+    <nav class="tabs" aria-label="Navigasi aplikasi">
+      <button class="tab active" data-tab="products">Produk</button>
+      <button class="tab" data-tab="marketing">Materi promosi</button>
+      <button class="tab" data-tab="sales">Penjualan</button>
+      <button class="tab" data-tab="plan">Rencana 30 hari</button>
+    </nav>
+
+    <section id="panel-products" class="panel">
+      <div class="section-heading">
+        <div><div class="eyebrow">KATALOG PRIBADI</div><h2>Produk digital</h2></div>
+        <button id="newProductBtn" class="button button-primary">+ Produk baru</button>
+      </div>
+      <div class="notice"><strong>Alur yang aman:</strong> buat draft → periksa isi dan hak penggunaan → tandai disetujui → unggah ke platform penjualan. Aplikasi ini tidak menerbitkan produk atau menerima pembayaran sendiri.</div>
+      <div id="productList" class="product-list"></div>
+      <div id="emptyProducts" class="empty-state hidden">
+        <div class="empty-icon">✦</div><h3>Belum ada produk</h3><p>Mulai dari satu produk yang sederhana, lalu validasi apakah calon pembeli membutuhkannya.</p>
+        <button class="button button-primary" id="emptyNewBtn">Buat produk pertama</button>
+      </div>
+    </section>
+
+    <section id="panel-marketing" class="panel hidden">
+      <div class="section-heading"><div><div class="eyebrow">PROMOSI</div><h2>Materi promosi</h2></div></div>
+      <div class="card">
+        <label for="marketingProduct">Pilih produk</label>
+        <select id="marketingProduct"></select>
+        <label for="channel">Saluran promosi</label>
+        <select id="channel">
+          <option value="TikTok / Reels / Shorts">TikTok / Reels / Shorts</option>
+          <option value="Instagram">Instagram</option>
+          <option value="Facebook">Facebook</option>
+          <option value="WhatsApp">WhatsApp</option>
+        </select>
+        <button id="makeMarketingBtn" class="button button-primary full">Buat kerangka materi</button>
+        <p class="help">Generator ini memakai pola/template lokal, bukan model AI yang terhubung. Untuk hasil AI yang lebih spesifik, salin prompt yang disediakan ke ChatGPT, lalu tinjau hasilnya.</p>
+      </div>
+      <div id="marketingResult" class="card result-card hidden"></div>
+      <div class="card">
+        <h3>Prompt untuk ChatGPT</h3>
+        <p class="muted">Salin prompt ini, sesuaikan detail produk, lalu minta AI membuat materi promosi. Jangan membuat klaim hasil atau testimoni palsu.</p>
+        <textarea id="generalPrompt" rows="5">Bertindak sebagai copywriter produk digital. Buat 5 ide konten yang bermanfaat dan tidak menyesatkan untuk produk digital berikut: [nama dan isi produk]. Target pembeli: [target]. Harga: [harga]. Sertakan hook, naskah video 20–30 detik, caption, CTA yang wajar, dan 5 hashtag relevan. Jangan membuat klaim hasil yang tidak terbukti atau testimoni palsu. Gunakan bahasa Indonesia natural dan tidak berlebihan.</textarea>
+        <button class="button button-secondary full" id="copyPromptBtn">Salin prompt</button>
+        <div id="copyPromptStatus" class="help" role="status"></div>
+      </div>
+    </section>
+
+    <section id="panel-sales" class="panel hidden">
+      <div class="section-heading"><div><div class="eyebrow">CATATAN BISNIS</div><h2>Penjualan</h2></div><button id="newSaleBtn" class="button button-primary">+ Catat penjualan</button></div>
+      <div class="notice">Catatan ini hanya untuk pemantauan pribadi. Data tidak otomatis tersambung ke Lynk.id atau rekening pembayaran.</div>
+      <div id="salesList" class="sales-list"></div>
+      <div id="emptySales" class="empty-state"><div class="empty-icon">↗</div><h3>Belum ada transaksi</h3><p>Setelah ada pembelian nyata, catat transaksi di sini agar kamu bisa memantau omzet.</p></div>
+    </section>
+
+    <section id="panel-plan" class="panel hidden">
+      <div class="section-heading"><div><div class="eyebrow">EKSEKUSI</div><h2>Rencana 30 hari</h2></div></div>
+      <p class="muted">Centang pekerjaan yang selesai. Progres tersimpan di browser ini.</p>
+      <div id="planList" class="plan-list"></div>
+      <div class="progress-wrap"><div class="progress-label"><span>Progres</span><strong id="planProgressText">0%</strong></div><div class="progress-track"><div id="planProgress" class="progress-bar"></div></div></div>
+    </section>
+  </main>
+
+  <footer><span>AsetAI MVP</span><span>Data disimpan lokal di browser</span></footer>
+
+  <dialog id="productDialog">
+    <form id="productForm" method="dialog">
+      <div class="dialog-heading"><div><div class="eyebrow">KATALOG</div><h2 id="productDialogTitle">Produk baru</h2></div><button type="button" class="icon-button" data-close="productDialog" aria-label="Tutup">×</button></div>
+      <input type="hidden" id="productId">
+      <label for="productName">Nama produk *</label><input id="productName" required maxlength="100" placeholder="Contoh: Jurnal Refleksi 30 Hari">
+      <label for="productType">Jenis produk</label>
+      <select id="productType"><option>E-book / panduan PDF</option><option>Jurnal / workbook</option><option>Template konten</option><option>Paket prompt AI</option><option>Bundle digital</option><option>Lainnya</option></select>
+      <label for="productAudience">Target pembeli</label><input id="productAudience" placeholder="Contoh: kreator pemula">
+      <label for="productDescription">Deskripsi dan manfaat *</label><textarea id="productDescription" required rows="3" placeholder="Apa isi produk dan masalah apa yang dibantu?"></textarea>
+      <div class="two-col">
+        <div><label for="productPrice">Harga (Rp) *</label><input id="productPrice" required type="number" min="0" step="1000" value="29000"></div>
+        <div><label for="productStatus">Status</label><select id="productStatus"><option value="draft">Draft</option><option value="review">Perlu ditinjau</option><option value="approved">Disetujui</option><option value="published">Sudah dipublikasikan</option></select></div>
+      </div>
+      <label for="productLink">Tautan penjualan (opsional)</label><input id="productLink" type="url" placeholder="https://lynk.id/...">
+      <div class="dialog-actions"><button type="button" class="button button-secondary" data-close="productDialog">Batal</button><button type="submit" class="button button-primary">Simpan produk</button></div>
+    </form>
+  </dialog>
+
+  <dialog id="saleDialog">
+    <form id="saleForm" method="dialog">
+      <div class="dialog-heading"><div><div class="eyebrow">TRANSAKSI</div><h2>Catat penjualan</h2></div><button type="button" class="icon-button" data-close="saleDialog" aria-label="Tutup">×</button></div>
+      <label for="saleProduct">Produk *</label><select id="saleProduct" required></select>
+      <label for="saleAmount">Nilai transaksi (Rp) *</label><input id="saleAmount" type="number" min="0" step="1000" required placeholder="49000">
+      <label for="saleDate">Tanggal</label><input id="saleDate" type="date" required>
+      <label for="saleNote">Catatan (opsional)</label><input id="saleNote" maxlength="120" placeholder="Contoh: penjualan dari Instagram">
+      <div class="dialog-actions"><button type="button" class="button button-secondary" data-close="saleDialog">Batal</button><button type="submit" class="button button-primary">Simpan transaksi</button></div>
+    </form>
+  </dialog>
+
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <script src="app.js"></script>
+</body>
+</html>
