@@ -61,7 +61,11 @@ button.secondary{background:#2a3c56}button:disabled{opacity:.5}.grid{display:gri
 <script>
 const $=id=>document.getElementById(id);
 function build(){
- const platform=$('platform').value,niche=$('niche').value.trim(),idea=$('idea').value.trim(),duration=$('duration').value;
+ const platform=$('platform').value;
+let niche=$('niche').value.trim();
+const idea=$('idea').value.trim();
+const duration=$('duration').value;
+if(!niche && idea){niche=tentukanNiche(idea);}
  if(!niche||!idea){alert('Isi niche dan ide terlebih dahulu.');return;}
  $('result').textContent=
 `PLATFORM: ${platform}
@@ -92,5 +96,25 @@ $('generate').addEventListener('click',build);
 $('copy').addEventListener('click',async()=>{const t=$('result').textContent;try{await navigator.clipboard.writeText(t);alert('Hasil disalin.')}catch(e){alert('Clipboard tidak tersedia. Pilih dan salin teks secara manual.')}});
 $('download').addEventListener('click',()=>{const blob=new Blob([$ ('result').textContent],{type:'text/plain;charset=utf-8'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='asetai-konsep.txt';a.click();URL.revokeObjectURL(a.href);});
 if('serviceWorker' in navigator){window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js').catch(()=>{}));}
+function tentukanNiche(ide) {
+  const teks = ide.toLowerCase();
+
+  const kategori = [
+    { kata: ["masak", "resep", "makanan"], niche: "Kuliner" },
+    { kata: ["tas", "baju", "kerudung", "fashion"], niche: "Fashion dan Lifestyle" },
+    { kata: ["anak", "bayi", "mainan"], niche: "Keluarga dan Anak" },
+    { kata: ["bisnis", "jualan", "usaha"], niche: "Bisnis dan Keuangan" },
+    { kata: ["cerita", "komedi", "lucu"], niche: "Hiburan dan Cerita" },
+    { kata: ["teknologi", "ai", "aplikasi"], niche: "Teknologi dan AI" }
+  ];
+
+  for (const item of kategori) {
+    if (item.kata.some(k => teks.includes(k))) {
+      return item.niche;
+    }
+  }
+
+  return "Lifestyle dan Hiburan";
+}
 </script>
 </body></html>
