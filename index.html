@@ -116,5 +116,55 @@ function tentukanNiche(ide) {
 
   return "Lifestyle dan Hiburan";
 }
+ function buatIdeKonten(niche) {
+  const ide = {
+    "Fashion dan Lifestyle": [
+      "5 produk fashion yang membuat penampilan lebih praktis",
+      "Kesalahan memilih tas untuk aktivitas sehari-hari",
+      "Rekomendasi outfit simpel dan elegan",
+      "Review produk fashion yang sedang diminati",
+      "Produk murah dengan tampilan berkelas"
+    ],
+    "Kuliner": [
+      "Resep sederhana dengan bahan sehari-hari",
+      "Ide menu praktis untuk keluarga",
+      "Makanan sederhana dengan rasa istimewa",
+      "Tips menyimpan bahan makanan",
+      "Review makanan yang menarik dicoba"
+    ],
+    "Keluarga dan Anak": [
+      "Aktivitas kreatif bersama anak",
+      "Tips memilih perlengkapan anak",
+      "Ide permainan sederhana di rumah",
+      "Cerita lucu kehidupan keluarga",
+      "Rekomendasi perlengkapan anak"
+    ],
+    "Bisnis dan Keuangan": [
+      "Ide usaha sederhana untuk pemula",
+      "Tips mengatur uang sehari-hari",
+      "Kesalahan umum saat memulai usaha",
+      "Cara membuat produk digital sederhana",
+      "Tips meningkatkan produktivitas"
+    ],
+    "Hiburan dan Cerita": [
+      "Cerita lucu dengan akhir tak terduga",
+      "Kejadian sehari-hari yang absurd",
+      "Cerita pendek penuh kejutan",
+      "Momen lucu yang relatable",
+      "Tantangan sederhana dengan twist"
+    ],
+    "Teknologi dan AI": [
+      "Tips menggunakan AI untuk pemula",
+      "Mengenal fitur aplikasi yang berguna",
+      "Cara kerja teknologi AI sederhana",
+      "Ide konten dengan bantuan AI",
+      "Kesalahan pemula menggunakan teknologi"
+    ]
+  };
+
+  return (ide[niche] || ide["Hiburan dan Cerita"])
+    .map((item, i) => (i + 1) + ". " + item)
+    .join("\n");
+ }
 </script>
 </body></html>
