@@ -45,6 +45,13 @@ button.secondary{background:#2a3c56}button:disabled{opacity:.5}.grid{display:gri
 <pre id="hasilIde"></pre>
 </section>
 <section class="card">
+ <section class="card">
+<h2>3. Generator Naskah Video</h2>
+<label>Masukkan ide yang ingin dibuatkan naskah</label>
+<textarea id="ideNaskah" placeholder="Masukkan salah satu ide konten..."></textarea>
+<button id="buatNaskah">Buat Naskah Video</button>
+<pre id="hasilNaskah"></pre>
+ </section>
 <h2>2. Hasil produksi</h2><div id="result" class="output">Hasil konsep akan tampil di sini.</div>
 <div class="row"><button class="secondary" id="copy">Salin hasil</button><button class="secondary" id="download">Unduh TXT</button></div>
 </section>
@@ -175,6 +182,43 @@ function tentukanNiche(ide) {
     return;
   }
   $('hasilIde').textContent=buatIdeKonten(niche);
+});
+ $('buatNaskah').addEventListener('click',()=>{
+  const ide=$('ideNaskah').value.trim();
+  const niche=$('niche').value.trim() || 'Umum';
+  const durasi=$('duration').value;
+
+  if(!ide){
+    alert('Masukkan ide konten terlebih dahulu.');
+    return;
+  }
+
+  $('hasilNaskah').textContent=
+`JUDUL:
+${ide}
+
+HOOK:
+"Jangan lewatkan ini! Ada hal menarik yang perlu kamu tahu."
+
+ADEGAN 1 - PEMBUKAAN:
+Tampilkan visual yang menarik sesuai ide konten.
+
+ADEGAN 2 - ISI:
+${ide}. Jelaskan informasi utama dengan bahasa sederhana dan menarik.
+
+ADEGAN 3 - PENUTUP:
+Berikan kesimpulan atau manfaat dari konten.
+
+NARASI:
+"Halo semuanya! Kali ini kita akan membahas ${ide}. Simak sampai selesai karena ada informasi menarik untuk kamu."
+
+CTA:
+"Follow akun ini untuk mendapatkan konten menarik lainnya."
+
+NICHE: ${niche}
+DURASI: ${durasi}
+
+Catatan: Ini adalah draft naskah otomatis berbasis template.`;
 });
 </script>
 </body></html>
