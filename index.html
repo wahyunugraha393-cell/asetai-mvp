@@ -51,6 +51,12 @@ button.secondary{background:#2a3c56}button:disabled{opacity:.5}.grid{display:gri
 <textarea id="ideNaskah" placeholder="Masukkan salah satu ide konten..."></textarea>
 <button id="buatNaskah">Buat Naskah Video</button>
 <pre id="hasilNaskah"></pre>
+  <section class="card">
+<h2>4. Storyboard Visual Otomatis</h2>
+<textarea id="ideStoryboard" placeholder="Masukkan naskah video di sini..."></textarea>
+<button id="buatStoryboard">Buat Storyboard</button>
+<pre id="hasilStoryboard"></pre>
+  </section>
  </section>
 <h2>2. Hasil produksi</h2><div id="result" class="output">Hasil konsep akan tampil di sini.</div>
 <div class="row"><button class="secondary" id="copy">Salin hasil</button><button class="secondary" id="download">Unduh TXT</button></div>
@@ -219,6 +225,38 @@ NICHE: ${niche}
 DURASI: ${durasi}
 
 Catatan: Ini adalah draft naskah otomatis berbasis template.`;
+});
+ $('buatStoryboard').addEventListener('click',()=>{
+  const naskah=$('ideStoryboard').value.trim();
+
+  if(!naskah){
+    alert('Masukkan naskah terlebih dahulu.');
+    return;
+  }
+
+  $('hasilStoryboard').textContent=
+`STORYBOARD VISUAL ASETAI
+
+ADEGAN 1 - PEMBUKAAN
+Visual: Tampilkan objek utama dengan komposisi menarik.
+Prompt: Cinematic vertical video 9:16, engaging opening shot, realistic lighting, natural movement.
+
+ADEGAN 2 - PENGENALAN
+Visual: Perlihatkan objek atau karakter utama secara jelas.
+Prompt: Medium shot, realistic details, smooth camera movement, consistent subject appearance.
+
+ADEGAN 3 - INTI CERITA
+Visual: Tampilkan aktivitas atau manfaat utama.
+Prompt: Dynamic visual storytelling, natural action, detailed environment, vertical 9:16.
+
+ADEGAN 4 - PENUTUP
+Visual: Akhiri dengan adegan yang mudah diingat.
+Prompt: Beautiful closing shot, smooth camera movement, realistic cinematic quality.
+
+NASKAH ACUAN:
+${naskah}
+
+Catatan: Prompt ini merupakan draft storyboard, bukan video yang sudah dihasilkan.`;
 });
 </script>
 </body></html>
