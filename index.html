@@ -57,6 +57,18 @@ button.secondary{background:#2a3c56}button:disabled{opacity:.5}.grid{display:gri
 <button id="buatStoryboard">Buat Storyboard</button>
 <pre id="hasilStoryboard"></pre>
   </section>
+<section class="card">
+<h2>5. Bank Konten</h2>
+<label>Status produksi</label>
+<select id="statusKonten">
+<option value="Ide">Ide</option>
+<option value="Siap produksi">Siap produksi</option>
+<option value="Selesai">Selesai</option>
+<option value="Siap publikasi">Siap publikasi</option>
+</select>
+<button id="simpanKonten">Simpan ke Bank Konten</button>
+<pre id="daftarKonten">Belum ada konten tersimpan.</pre>
+</section>
  </section>
 <h2>2. Hasil produksi</h2><div id="result" class="output">Hasil konsep akan tampil di sini.</div>
 <div class="row"><button class="secondary" id="copy">Salin hasil</button><button class="secondary" id="download">Unduh TXT</button></div>
@@ -258,5 +270,45 @@ ${naskah}
 
 Catatan: Prompt ini merupakan draft storyboard, bukan video yang sudah dihasilkan.`;
 });
+ 
+function tampilkanBankKonten() {
+  const bank = JSON.parse(localStorage.getItem('asetaiBankKontenV1') || '[]');
+  const daftar = $('daftarKonten');
+
+  if (bank.length === 0) {
+    daftar.textContent = 'Belum ada konten tersimpan.';
+    return;
+  }
+
+  daftar.textContent = bank.map((item, i) =>
+    `${i + 1}. ${item.judul}\nStatus: ${item.status}\nDisimpan: ${item.waktu}`
+  ).join('\n\n');
+}
+
+$('simpanKonten').addEventListener('click', () => {
+  const judul = $('idea').value.trim() || $('ideNaskah').value.trim();
+
+  if (!judul) {
+    alert('Masukkan ide konten terlebih dahulu.');
+    return;
+  }
+
+  const bank = JSON.parse(localStorage.getItem('asetaiBankKontenV1') || '[]');
+
+  bank.push({
+    judul: judul,
+    naskah: $('ideNaskah').value,
+    storyboard: $('ideStoryboard').value,
+    status: $('statusKonten').value,
+    waktu: new Date().toLocaleString('id-ID')
+  });
+
+  localStorage.setItem('asetaiBankKontenV1', JSON.stringify(bank));
+  tampilkanBankKonten();
+  alert('Konten berhasil disimpan!');
+});
+
+tampilkanBankKonten();
+
 </script>
 </body></html>
